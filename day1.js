@@ -1,15 +1,15 @@
 const fs = require('fs');
 
-const input = fs.readFileSync('day1-input.txt', 'utf8').split``
+const input = fs.readFileSync('day1-input.txt', 'utf8').split`\n`
 
-const result = input.reduce((result, instruction, index) => {
-	result.part1 += instruction === '(' ? 1 : -1
-	if (result.part1 === -1 && !result.part2) {
-		result.part2 = index + 1
-	}
-	return result
-}, { part1: 0, part2: null })
+const part1 = input.reduce((sum, r) => sum + +((d = r.replace(/\D/g, '')).length > 2 ? `${d[0]}${d.slice(-1)}` : d.length === 1 ? `${d}${d}` : d), 0);
 
-console.log(result);
+console.log(part1);
+
+
+
+
+
+
 
 
