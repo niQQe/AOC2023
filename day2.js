@@ -18,7 +18,7 @@ const parsedGames = input.map(gameString => {
 	});
 });
 
-const result = parsedGames.reduce((acc, game, index) => {
+const resultPart1 = parsedGames.reduce((acc, game, index) => {
 	const gameId = index + 1;
 	const isPossible = game.every(subset =>
 		Object.entries(subset).every(([color, value]) => value <= bag[color])
@@ -26,4 +26,18 @@ const result = parsedGames.reduce((acc, game, index) => {
 	return isPossible ? acc + gameId : acc;
 }, 0);
 
-console.log(result);
+console.log(resultPart1);
+
+const resultPart2 = parsedGames.reduce((totalSum, game) => {
+	const maxValues = game.reduce((max, subset) => {
+		const colors = Object.keys(subset)
+		for (const color of colors) {
+			max[color] = subset[color] > max[color] ? subset[color] : max[color]
+		}
+		return max
+	}, { ...Object.fromEntries(Object.keys(bag).map(key => [key, 0])) });
+	const power = Object.values(maxValues).reduce((product, value) => product * value, 1);
+	return totalSum + power;
+}, 0);
+
+console.log(resultPart2);
