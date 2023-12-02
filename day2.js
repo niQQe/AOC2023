@@ -36,7 +36,7 @@ const resultPart2 = parsedGames.reduce((totalSum, game) => {
 		}
 		return max
 	}, { ...Object.fromEntries(Object.keys(bag).map(key => [key, 0])) });
-	const power = Object.values(maxValues).reduce((product, value) => product * value, 1);
+	const power = Object.values(maxValues).reduce((total, value) => total * value, 1);
 	return totalSum + power;
 }, 0);
 
