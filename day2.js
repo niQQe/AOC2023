@@ -35,7 +35,7 @@ const resultPart2 = parsedGames.reduce((totalSum, game) => {
 			max[color] = subset[color] > max[color] ? subset[color] : max[color]
 		}
 		return max
-	}, { ...Object.fromEntries(Object.keys(bag).map(key => [key, 0])) });
+	}, { ...Object.fromEntries(Object.keys(bag).map(key => [key, 0]))});
 	const power = Object.values(maxValues).reduce((total, value) => total * value, 1);
 	return totalSum + power;
 }, 0);
