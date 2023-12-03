@@ -9,7 +9,7 @@ let resultpart1 = 0
 for (let i = 0; i < input.length; i++) {
 	const chars = input[i].split``
 	let number = ''
-	let surroundingCarsPerNumber = []
+	let surroundingCharsPerFullNumber = []
 	for (let j = 0; j < chars.length; j++) {
 		if (!isNaN(chars[j])) {
 			number += chars[j]
@@ -23,13 +23,13 @@ for (let i = 0; i < input.length; i++) {
 				topRight: input[i !== 0 ? i - 1 : i][j + 1],
 				bottomRight: input[i !== input.length - 1 ? i + 1 : i][j + 1]
 			};
-			surroundingCarsPerNumber.push(surroundingCharsPerChar)
+			surroundingCharsPerFullNumber.push(surroundingCharsPerChar)
 		} else {
 			if (number != '') {
-				const values = surroundingCarsPerNumber.map(v => Object.values(v)).flat()
-				const isAdjacent = values.some(v => SPECIAL_CHARS.includes(v))
+				const chars = surroundingCharsPerFullNumber.map(v => Object.values(v)).flat()
+				const isAdjacent = chars.some(v => SPECIAL_CHARS.includes(v))
 				if (isAdjacent) resultpart1 += +number
-				surroundingCarsPerNumber = []
+				surroundingCharsPerFullNumber = []
 				number = ''
 			}
 		}
