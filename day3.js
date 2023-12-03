@@ -13,8 +13,7 @@ for (let i = 0; i < input.length; i++) {
 	for (let j = 0; j < chars.length; j++) {
 		if (!isNaN(chars[j])) {
 			number += chars[j]
-			const directions = {
-				num: number,
+			const surroundingChars = {
 				left: input[i][j - 1],
 				right: input[i][j + 1],
 				top: input[i !== 0 ? i - 1 : i][j],
@@ -24,13 +23,12 @@ for (let i = 0; i < input.length; i++) {
 				topRight: input[i !== 0 ? i - 1 : i][j + 1],
 				bottomRight: input[i !== input.length - 1 ? i + 1 : i][j + 1]
 			};
-			latestState.push(directions)
+			latestState.push(surroundingChars)
 		} else {
 			if (number != '') {
-				const { num } = latestState.at(-1)
 				const values = latestState.map(v => Object.values(v)).flat()
 				const state = values.some(v => SPECIAL_CHARS.includes(v))
-				if (state) resultpart1 += +num
+				if (state) resultpart1 += +number
 				latestState = []
 				number = ''
 			}
