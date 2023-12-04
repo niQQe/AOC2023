@@ -7,7 +7,7 @@ const resultPart1 = input.reduce((totalPoints, card) => {
 	const [_, winningNumbers, yourNumbers] = parsedCard
 	const pointsPerCard = yourNumbers.reduce((points, number) => {
 		if (winningNumbers.includes(number)) {
-			points === 0 ? points += 1 : points += points
+			points += points || 1;
 		}
 		return points
 	}, 0)
