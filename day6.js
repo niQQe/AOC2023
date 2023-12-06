@@ -1,4 +1,5 @@
 const fs = require('fs');
+const input = fs.readFileSync('day6-input.txt', 'utf-8').split('\r\n').map(v => v.split`: `[1].trim()).map(v => v.split` `.filter(v => v))
 
 const groupedRaces = input[0].reduce((accumulator, current, i) => {
 	const value = `${current} ${input[1][i]}`;
