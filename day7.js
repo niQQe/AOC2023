@@ -25,7 +25,6 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		isFullHouse: handValues.includes(3) && handValues.includes(2),
 		isHighCard: handValues.every(v => v === 1)
 	};
-
 	const cardNumber = input[index].split(' ')[0];
 
 	if (handCounts.fiveOfAKind) acc['five-of-a-kind'].push({ number: cardNumber, bid });
@@ -35,6 +34,7 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 	if (handCounts.pairs === 2) acc['two-pair'].push({ number: cardNumber, bid });
 	if (handCounts.pairs === 1 && !handCounts.threeOfAKind) acc['one-pair'].push({ number: cardNumber, bid });
 	if (handCounts.isHighCard) acc['high-card'].push({ number: cardNumber, bid });
+	
 	return acc;
 }, handTypes.reduce((acc, handType) => {
 	acc[handType] = [];
