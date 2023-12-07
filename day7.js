@@ -17,7 +17,7 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 	const [indexAndBid, hand] = Object.entries(curr);
 	const [index, bid] = indexAndBid[1].split('-');
 	const handValues = Object.values(hand[1]);
-	const handCounts = {
+	const handTypes = {
 		pairs: handValues.filter(v => v === 2).length,
 		threeOfAKind: handValues.includes(3),
 		fourOfAKind: handValues.includes(4),
@@ -27,14 +27,14 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 	};
 	const cardNumber = input[index].split(' ')[0];
 
-	if (handCounts.fiveOfAKind) acc['five-of-a-kind'].push({ number: cardNumber, bid });
-	if (handCounts.isFullHouse) acc['full-house'].push({ number: cardNumber, bid });
-	if (handCounts.fourOfAKind) acc['four-of-a-kind'].push({ number: cardNumber, bid });
-	if (handCounts.threeOfAKind && !handCounts.isFullHouse) acc['three-of-a-kind'].push({ number: cardNumber, bid });
-	if (handCounts.pairs === 2) acc['two-pair'].push({ number: cardNumber, bid });
-	if (handCounts.pairs === 1 && !handCounts.threeOfAKind) acc['one-pair'].push({ number: cardNumber, bid });
-	if (handCounts.isHighCard) acc['high-card'].push({ number: cardNumber, bid });
-	
+	if (handTypes.fiveOfAKind) acc['five-of-a-kind'].push({ number: cardNumber, bid });
+	if (handTypes.isFullHouse) acc['full-house'].push({ number: cardNumber, bid });
+	if (handTypes.fourOfAKind) acc['four-of-a-kind'].push({ number: cardNumber, bid });
+	if (handTypes.threeOfAKind && !handTypes.isFullHouse) acc['three-of-a-kind'].push({ number: cardNumber, bid });
+	if (handTypes.pairs === 2) acc['two-pair'].push({ number: cardNumber, bid });
+	if (handTypes.pairs === 1 && !handTypes.threeOfAKind) acc['one-pair'].push({ number: cardNumber, bid });
+	if (handTypes.isHighCard) acc['high-card'].push({ number: cardNumber, bid });
+
 	return acc;
 }, handTypes.reduce((acc, handType) => {
 	acc[handType] = [];
