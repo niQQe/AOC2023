@@ -26,11 +26,11 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		fullHouse: handValues.includes(3) && handValues.includes(2),
 		highCard: handValues.every(v => v === 1)
 	};
-	
+
 	const cardNumber = input[index].split(' ')[0];
 
-	for (const key in handTypes) {
-		if (handTypes[key]) acc[key].push({ number: cardNumber, bid });
+	for (const type in handTypes) {
+		if (handTypes[type]) acc[type].push({ number: cardNumber, bid });
 	}
 
 	return acc;
