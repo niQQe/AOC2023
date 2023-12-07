@@ -7,8 +7,6 @@ const groupedRaces = input[0].reduce((accumulator, current, i) => {
 	return accumulator;
 }, [])
 
-console.log(groupedRaces);
-
 const resultPart1 = Object.values(groupedRaces.reduce((acc, _, index) => {
 	const [time, distance] = groupedRaces[index].split` `.map(v => +v)
 	for (const i of Array(time + 1).keys()) {
