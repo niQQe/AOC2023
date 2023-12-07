@@ -3,7 +3,7 @@ const fs = require('fs');
 const input = fs.readFileSync('day7-input.txt', 'utf8').split`\r\n`
 
 const cardValues = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
-const handTypes = ['high-card', 'one-pair', 'two-pair', 'three-of-a-kind', 'full-house', 'four-of-a-kind', 'five-of-a-kind'];
+const handTypes = ['highCard', 'onePair', 'twoPairs', 'threeOfaKind', 'fullHouse', 'fourOfAKind', 'fiveOfAKind'];
 
 const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, curr, i) => {
 	const [hand, bid] = curr.split` `
@@ -18,22 +18,20 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 	const [index, bid] = indexAndBid[1].split('-');
 	const handValues = Object.values(hand[1]);
 	const handTypes = {
-		pairs: handValues.filter(v => v === 2).length,
-		threeOfAKind: handValues.includes(3),
+		onePair: handValues.filter(v => v === 2).length === 1 && !handValues.includes(3),
+		twoPairs: handValues.filter(v => v === 2).length === 2,
+		threeOfaKind: handValues.includes(3) && !handValues.includes(2),
 		fourOfAKind: handValues.includes(4),
 		fiveOfAKind: handValues.includes(5),
-		isFullHouse: handValues.includes(3) && handValues.includes(2),
-		isHighCard: handValues.every(v => v === 1)
+		fullHouse: handValues.includes(3) && handValues.includes(2),
+		highCard: handValues.every(v => v === 1)
 	};
+	
 	const cardNumber = input[index].split(' ')[0];
 
-	if (handTypes.fiveOfAKind) acc['five-of-a-kind'].push({ number: cardNumber, bid });
-	if (handTypes.isFullHouse) acc['full-house'].push({ number: cardNumber, bid });
-	if (handTypes.fourOfAKind) acc['four-of-a-kind'].push({ number: cardNumber, bid });
-	if (handTypes.threeOfAKind && !handTypes.isFullHouse) acc['three-of-a-kind'].push({ number: cardNumber, bid });
-	if (handTypes.pairs === 2) acc['two-pair'].push({ number: cardNumber, bid });
-	if (handTypes.pairs === 1 && !handTypes.threeOfAKind) acc['one-pair'].push({ number: cardNumber, bid });
-	if (handTypes.isHighCard) acc['high-card'].push({ number: cardNumber, bid });
+	for (const key in handTypes) {
+		if (handTypes[key]) acc[key].push({ number: cardNumber, bid });
+	}
 
 	return acc;
 }, handTypes.reduce((acc, handType) => {
