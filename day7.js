@@ -13,8 +13,8 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		acc[`${i}-${bid}`][card] = (acc[`${i}-${bid}`][card] || 0) + 1
 	}
 	return acc
-}, {})).reduce((groupedTypes, curr) => {
-	const [indexAndBid, hand] = Object.entries(curr);
+}, {})).reduce((groupedTypes, cards) => {
+	const [indexAndBid, hand] = Object.entries(cards);
 	const [index, bid] = indexAndBid[1].split('-');
 	const handValues = Object.values(hand[1]);
 	const handTypes = {
@@ -34,10 +34,10 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 	}
 
 	return groupedTypes;
-}, handTypes.reduce((acc, handType) => {
-	acc[handType] = [];
-	return acc;
-}, {}))).reduce((acc, type) => {
+}, handTypes.reduce((handeTypes, handType) => {
+	handeTypes[handType] = [];
+	return handeTypes;
+}, {}))).reduce((sortedCardsByType, type) => {
 	const values = cardsByType[type]
 	const sortedCards = values.sort((a, b) => {
 		const currentCards = a.card.split('').map(v => cardValues[v]);
@@ -45,8 +45,8 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		const order = currentCards.findIndex((card, index) => card !== nextCards[index]);
 		return order === -1 ? 0 : currentCards[order] < nextCards[order] ? -1 : 1;
 	})
-	acc.push(sortedCards)
-	return acc
+	sortedCardsByType.push(sortedCards)
+	return sortedCardsByType
 }, []).flat()
 	.map((item, index) => +item.bid * (index + 1))
 	.reduce((sum, value) => sum + value, 0);
