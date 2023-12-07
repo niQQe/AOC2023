@@ -13,7 +13,7 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		acc[`${i}-${bid}`][card] = (acc[`${i}-${bid}`][card] || 0) + 1
 	}
 	return acc
-}, {})).reduce((acc, curr) => {
+}, {})).reduce((groupedTypes, curr) => {
 	const [indexAndBid, hand] = Object.entries(curr);
 	const [index, bid] = indexAndBid[1].split('-');
 	const handValues = Object.values(hand[1]);
@@ -27,21 +27,21 @@ const resultPart1 = Object.keys(cardsByType = Object.entries(input.reduce((acc, 
 		highCard: handValues.every(v => v === 1)
 	};
 
-	const cardNumber = input[index].split(' ')[0];
+	const card = input[index].split(' ')[0];
 
 	for (const type in handTypes) {
-		if (handTypes[type]) acc[type].push({ number: cardNumber, bid });
+		if (handTypes[type]) groupedTypes[type].push({ card, bid });
 	}
 
-	return acc;
+	return groupedTypes;
 }, handTypes.reduce((acc, handType) => {
 	acc[handType] = [];
 	return acc;
 }, {}))).reduce((acc, type) => {
 	const values = cardsByType[type]
 	const sortedCards = values.sort((a, b) => {
-		const currentCards = a.number.split('').map(v => cardValues[v]);
-		const nextCards = b.number.split('').map(v => cardValues[v]);
+		const currentCards = a.card.split('').map(v => cardValues[v]);
+		const nextCards = b.card.split('').map(v => cardValues[v]);
 		const order = currentCards.findIndex((card, index) => card !== nextCards[index]);
 		return order === -1 ? 0 : currentCards[order] < nextCards[order] ? -1 : 1;
 	})
