@@ -15,9 +15,11 @@ let resultPart1 = 0;
 let instructionIndex = 0;
 let indexOfNode = Object.keys(parsedData).indexOf('AAA');
 let currentNode;
+const targetNode = 'ZZZ'
 const entries = Object.entries(parsedData);
 const nodes = Object.keys(parsedData);
-while (currentNode !== 'ZZZ') {
+
+while (currentNode !== targetNode) {
 	const nodeValues = entries[indexOfNode][1];
 	currentNode = nodeValues[instructions[instructionIndex]];
 	indexOfNode = nodes.indexOf(currentNode);
