@@ -1,6 +1,6 @@
 const input = fs.readFileSync('day9-input.txt', 'utf8').split`\r\n`.map(v => v.split` `.map(v => +v))
 
-const resultPart = input.reduce((totalSum, dataset) => {
+const resultPart1 = input.reduce((totalSum, dataset) => {
 	const history = [[...dataset]]
 	let historyIndex = 0
 
@@ -24,5 +24,5 @@ const resultPart = input.reduce((totalSum, dataset) => {
 	return totalSum += sum
 }, 0)
 
-console.log(resultPart);
+console.log(resultPart1);
 
