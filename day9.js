@@ -24,6 +24,5 @@ const resultPart = input.reduce((totalSum, dataset) => {
 	return totalSum += sum
 }, 0)
 
-
 console.log(resultPart);
 
