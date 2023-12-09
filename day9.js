@@ -20,7 +20,7 @@ const resultPart = input.reduce((totalSum, dataset) => {
 		historyIndex++
 	}
 
-	const sum = history.reduce((acc, curr) => acc += curr.at(-1), 0)
+	const sum = history.reduce((totalSequenceSum, sequence) => totalSequenceSum += sequence.at(-1), 0)
 	return totalSum += sum
 }, 0)
 
