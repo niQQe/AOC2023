@@ -15,6 +15,7 @@ let resultPart1 = 0;
 let instructionIndex = 0;
 let indexOfNode = Object.keys(parsedData).indexOf('AAA');
 let currentNode;
+
 const targetNode = 'ZZZ'
 const entries = Object.entries(parsedData);
 const nodes = Object.keys(parsedData);
